@@ -9,13 +9,18 @@ from game.tamagochi import SimpleTamagochi
 
 def main() -> None:
     all_food = [
-        Food(name='Бургер', satiety=20, price=40),
-        Food(name='Салат', satiety=10, price=20),
-        Food(name='Яблоко', satiety=10, price=15)
+        Food(name="Бургер", satiety=20, price=40),
+        Food(name="Салат", satiety=10, price=20),
+        Food(name="Яблоко", satiety=10, price=15),
     ]
 
     all_medicine = [
-        Medicine(name='Ибупрофен', price=30, heal_hp=20, number_of_uses=2)
+        Medicine(
+            name="Ибупрофен",
+            price=30,
+            heal_hp=20,
+            number_of_uses=2,
+        )
     ]
 
     tamagochi = SimpleTamagochi()
@@ -28,7 +33,7 @@ def main() -> None:
     )
 
     print("Добро пожаловать в Тамагочи-кликер!")
-    output = ''
+    output = ""
 
     while True:
         print(output)
@@ -61,7 +66,7 @@ def main() -> None:
             match input("Выберите действие: "):
                 case "1":
                     income = game.work()
-                    output = f'Вы заработали {income} монет'
+                    output = f"Вы заработали {income} монет"
                 case "2":
                     game.buy_food()
                 case "3":
@@ -72,10 +77,10 @@ def main() -> None:
                     game.heal_tamagochi()
                 case "6":
                     game.play_with_tamagochi()
-                    output = 'Вы поиграли с питомцем'
+                    output = "Вы поиграли с питомцем"
                 case "7":
                     game.rest_tamagochi()
-                    output = 'Питомец отдохнул'
+                    output = "Питомец отдохнул"
                 case "0":
                     break
                 case _:
@@ -86,7 +91,7 @@ def main() -> None:
             output = "Питомец умер. Игра окончена."
             break
 
-        os.system('cls' if os.name == 'nt' else 'clear')
+        os.system("cls" if os.name == "nt" else "clear")
 
 
 if __name__ == "__main__":

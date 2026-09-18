@@ -3,32 +3,14 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from .tamagochi import AbstractTamagochi
 from .clicker import AbstractClicker
-from .models import Food, Medicine
 from .exceptions import NotEnoughMoney
+from .models import Food, Medicine
+from .tamagochi import AbstractTamagochi
 
 
 class AbstractGame(ABC):
     """Интерфейс для логики игры"""
-
-    @abstractmethod
-    def __init__(
-        self,
-        tamagochi: AbstractTamagochi,
-        clicker: AbstractClicker,
-        all_food: list[Food],
-        all_medicine: list[Medicine]
-    ):
-        """
-        Абстрактный метод инициализации класса игры
-
-        :param tamagochi: экземпляр тамагочи
-        :param clicker: экземпляр кликера
-        :param all_food: все доступные варианты еды
-        :param all_medicine: все доступные варианты лекарств
-        """
-        raise NotImplementedError
 
     @abstractmethod
     def work(self) -> int:
@@ -60,19 +42,19 @@ class AbstractGame(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def rest_tamagochi(self):
+    def rest_tamagochi(self) -> None:
         """Абстрактный метод для отдыха тамагочи"""
         raise NotImplementedError
 
     @abstractmethod
-    def play_with_tamagochi(self):
+    def play_with_tamagochi(self) -> None:
         """Абстрактный метод для игры с тамагочи"""
         raise NotImplementedError
 
     @abstractmethod
     def get_status(self) -> dict[str, Any]:
         """
-        Абстрактный метод для получения статуса (всех характеристик) тамагочи
+        Метод для получения статуса (всех характеристик) тамагочи
 
         :return: словарь со всеми характеристиками тамагочи
         """
@@ -135,7 +117,7 @@ class SimpleGame(AbstractGame):
             Копия списка купленной еды.
         """
         return list(self._food)
-    
+
     @property
     def medicine(self) -> list[Medicine]:
         """
@@ -145,7 +127,7 @@ class SimpleGame(AbstractGame):
             Копия списка купленных лекарств.
         """
         return list(self._medicine)
-    
+
     def work(self) -> int:
         """
         Выполнить работу и начислить монеты.
@@ -171,7 +153,7 @@ class SimpleGame(AbstractGame):
         status["coins"] = self._coins
 
         return status
-    
+
     def buy_food(self) -> None:
         """
         Купить еду и положить её в сумку.
