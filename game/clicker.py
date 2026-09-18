@@ -23,7 +23,13 @@ class SimpleRandomClicker(AbstractClicker):
     """Кликер, выдающий случайный доход в заданном диапазоне."""
 
     def __init__(self, min_income: int, max_income: int) -> None:
-        """Инициализировать кликер со случайным доходом."""
+        """
+        Инициализировать кликер со случайным доходом.
+
+        :param min_income: Минимальное количество монет за клик.
+        :param max_income: Максимальное количество монет за клик.
+        :raises ValueError: Если минимальный доход больше максимального.
+        """
         if min_income > max_income:
             raise ValueError("Минимальный доход не может быть больше максимального")
 

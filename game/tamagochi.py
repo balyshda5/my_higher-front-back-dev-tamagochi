@@ -11,7 +11,11 @@ class AbstractTamagochi(ABC):
 
     @abstractmethod
     def feed(self, food: Food) -> None:
-        """Покормить тамагочи."""
+        """
+        Покормить тамагочи.
+
+        :param food: Еда для питомца.
+        """
         raise NotImplementedError
 
     @abstractmethod
@@ -26,7 +30,11 @@ class AbstractTamagochi(ABC):
 
     @abstractmethod
     def heal(self, medicine: Medicine) -> None:
-        """Лечение тамагочи."""
+        """
+        Лечение тамагочи.
+
+        :param medicine: Лекарство для питомца.
+        """
         raise NotImplementedError
 
     @property
@@ -42,7 +50,7 @@ class AbstractTamagochi(ABC):
 
     @abstractmethod
     def is_sick(self) -> bool:
-        """Не болеет ли тамагочи?"""
+        """Проверить, болеет ли питомец."""
         raise NotImplementedError
 
     @abstractmethod
@@ -110,7 +118,12 @@ class SimpleTamagochi(AbstractTamagochi):
         return self._sick
 
     def feed(self, food: Food) -> None:
-        """Покормить питомца."""
+        """
+        Покормить питомца.
+
+        :param food: Еда для питомца.
+        :raises TamagochiIsGone: Если питомец умер.
+        """
         if not self.is_alive():
             raise TamagochiIsGone("Питомец умер, его нельзя покормить.")
 
@@ -121,7 +134,11 @@ class SimpleTamagochi(AbstractTamagochi):
         )
 
     def play(self) -> None:
-        """Поиграть с питомцем."""
+        """
+        Поиграть с питомцем.
+
+        :raises TamagochiIsGone: Если питомец умер.
+        """
         if not self.is_alive():
             raise TamagochiIsGone("Питомец умер, с ним нельзя играть.")
 
@@ -136,7 +153,11 @@ class SimpleTamagochi(AbstractTamagochi):
         )
 
     def rest(self) -> None:
-        """Дать питомцу отдохнуть."""
+        """
+        Дать питомцу отдохнуть.
+
+        :raises TamagochiIsGone: Если питомец умер.
+        """
         if not self.is_alive():
             raise TamagochiIsGone("Питомец умер, он не может отдыхать")
 
@@ -149,7 +170,13 @@ class SimpleTamagochi(AbstractTamagochi):
         )
 
     def heal(self, medicine: Medicine) -> None:
-        """Вылечить питомца лекарством."""
+        """
+        Вылечить питомца лекарством.
+
+        :param medicine: Лекарство для лечения питомца.
+        :raises TamagochiIsGone: Если питомец умер.
+        :raises ValueError: Если у лекарства закончились применения.
+        """
         if not self.is_alive():
             raise TamagochiIsGone("Питомец умер, его нельзя лечить")
 
