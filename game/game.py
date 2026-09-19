@@ -1,6 +1,7 @@
 """Модуль с интерфейсом и реализацией класса игры"""
 
 from abc import ABC, abstractmethod
+from copy import copy
 from typing import Any
 
 from .clicker import AbstractClicker
@@ -218,12 +219,7 @@ class SimpleGame(AbstractGame):
         if self._coins < selected_medicine.price:
             raise NotEnoughMoney("Недостаточно монет для покупки лекарства.")
 
-        purchased_medicine = Medicine(
-            name=selected_medicine.name,
-            price=selected_medicine.price,
-            heal_hp=selected_medicine.heal_hp,
-            number_of_uses=selected_medicine.number_of_uses,
-        )
+        purchased_medicine = copy(selected_medicine)
 
         self._coins -= purchased_medicine.price
         self._medicine.append(purchased_medicine)

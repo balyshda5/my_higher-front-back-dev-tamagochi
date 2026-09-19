@@ -6,6 +6,21 @@ from game.game import SimpleGame
 from game.models import Food, Medicine
 from game.tamagochi import SimpleTamagochi
 
+STATUS_TEMPLATE = (
+    "\nСтатус: голод {hunger}, здоровье {hp}, энергия {energy}, монет {coins}\n"
+)
+
+MENU = [
+    "1. Пойти на работу\n",
+    "2. Купить еду\n",
+    "3. Купить лекарство\n",
+    "4. Покормить\n",
+    "5. Вылечить\n",
+    "6. Играть\n",
+    "7. Отдых\n",
+    "0. Выход",
+]
+
 
 def main() -> None:
     all_food = [
@@ -38,29 +53,20 @@ def main() -> None:
     while True:
         print(output)
 
-        print(f"Сумка с едой: {game.food}")
-        print(f"Сумка с лекарствами: {game.medicine}")
+        print(f"Сумка с едой: {game.food}\nСумка с лекарствами: {game.medicine}")
 
-        status = game.get_status()
-        print(
-            f"\nСтатус: голод {status['hunger']}, здоровье {status['hp']}, "
-            f"энергия {status['energy']}, монет {status['coins']}\n"
-        )
+        print(STATUS_TEMPLATE.format(**game.get_status()))
+
         if not game.tamagochi.is_alive():
-            print("=======Тамагочи умер=======")
-            print("Игра окончена.")
+            print("=======Тамагочи умер=======\nИгра окончена.")
             break
         if game.tamagochi.is_sick():
-            print("=======Тамагочи болеет======")
-            print("=======Отдых действует менее эффективно=======")
-        print("1. Пойти на работу")
-        print("2. Купить еду")
-        print("3. Купить лекарство")
-        print("4. Покормить")
-        print("5. Вылечить")
-        print("6. Играть")
-        print("7. Отдых")
-        print("0. Выход")
+            print(
+                "=======Тамагочи болеет======\n"
+                "=======Отдых действует менее эффективно======="
+            )
+
+        print(MENU)
 
         try:
             match input("Выберите действие: "):
